@@ -5,26 +5,30 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import kotlinx.coroutines.CoroutineScope
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var btnGetText: Button
+    private lateinit var editTextInput: EditText
+    private lateinit var txtViewOutput: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val myInstance = MyLiveData()
+        btnGetText = findViewById(R.id.button_get_text)
+        editTextInput = findViewById(R.id.edit_text_input)
+        txtViewOutput = findViewById(R.id.text_view_output)
 
-        // Get value from Live data
-        myInstance.getNumberLiveData().observe(this) {
-            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+        btnGetText.setOnClickListener {
+            val input = editTextInput.text.toString()
+            txtViewOutput.text = input
         }
 
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            myInstance.setNumberLiveData(Random.nextInt(10))
-//        }, 2000)
-
-        myInstance.setNumberLiveData(20)
     }
 }
